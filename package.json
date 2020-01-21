@@ -1,0 +1,33 @@
+{
+  "name": "ejo-knowledgebase",
+  "version": "0.1.0",
+  "description": "A flexible and extendable knowledgebase for WordPress",
+  "main": "index.js",
+  "directories": {
+    "lib": "inc"
+  },
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikjoling/ejo-knowledgebase.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikjoling/ejo-knowledgebase/issues"
+  },
+  "homepage": "https://github.com/erikjoling/ejo-knowledgebase#readme",
+  "devDependencies": {
+    "@babel/preset-react": "^7.6.3",
+    "cross-env": "^6.0.3",
+    "laravel-mix": "^5.0.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

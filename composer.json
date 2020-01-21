@@ -1,0 +1,16 @@
+{
+	"name"        : "erikjoling/ejo-knowledgebase",
+	"type"        : "wordpress-plugin",
+	"description" : "A flexible and extendable knowledgebase for WordPress",
+	"keywords"    : ["wordpress"],
+	"homepage"    : "https://www.ejoweb.nl/",
+	"license"     : "GPL-2.0-or-later",
+	"authors"     : [
+		{
+			"name"    : "Erik Joling",
+			"email"   : "erik@ejoweb.nl",
+			"homepage": "https://www.ejoweb.nl/"
+		}
+	],
+	"require": {}
+}
