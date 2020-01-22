@@ -19,8 +19,6 @@ namespace Ejo\Kb;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-error_log('test');
-
 /**
  * WP Plugin Class
  * 
@@ -87,8 +85,6 @@ final class WP_Plugin {
         // any classes/functions are available that we might need.
         require_once( static::get_file_path( 'app/bootstrap-autoload.php' ) );
         require_once( static::get_file_path( 'app/bootstrap-app.php' )      );
-
-        log( 'Plugin ' . static::get_id() );
 
         /**
          * On plugin activation
