@@ -49,7 +49,7 @@ add_action( 'init', function() {
             'slug'       => __('knowledgebase','ejo-kb'),
             'with_front' => false,
         ),
-        'supports'              => array('title','editor','author'),
+        'supports'              => array('title','editor','author','thumbnail'),
         'public'                => true,
         'show_ui'               => true,
         'publicly_queryable'    => true,
