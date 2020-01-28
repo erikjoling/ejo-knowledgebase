@@ -12,7 +12,7 @@
  * @link      https://www.ejoweb.nl/
  */
 
-namespace Ejo\Kb;
+namespace Ejo\Knowledgebase;
 
 # ------------------------------------------------------------------------------
 # Run the Composer autoloader.

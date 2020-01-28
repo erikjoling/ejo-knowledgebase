@@ -1,6 +1,6 @@
 <?php
 
-namespace Ejo\Kb;
+namespace Ejo\Knowledgebase;
 
 /**
  * Helper function for outputting an asset URL in the theme. This integrates

@@ -15,7 +15,7 @@
  * GitHub Branch:      master
  */
 
-namespace Ejo\Kb;
+namespace Ejo\Knowledgebase;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 

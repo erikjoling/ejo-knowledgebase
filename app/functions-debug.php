@@ -1,6 +1,6 @@
 <?php 
 
-namespace Ejo\Kb;
+namespace Ejo\Knowledgebase;
 
 /**
  * Safe check if WP_DEBUG is true
