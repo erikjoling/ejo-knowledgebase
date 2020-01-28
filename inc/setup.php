@@ -15,6 +15,13 @@ namespace Ejo\Knowledgebase;
 require_once( WP_Plugin::get_file_path( 'inc/class-post-type.php' ) );
 
 add_action( 'init', __NAMESPACE__ . '\register_post_type' );
+add_action( 'admin_menu', function() {
+
+    $options_page_slug = Post_Type::get_id() . '-options';
+
+    // Add options page link to post type sub menu
+    add_submenu_page('edit.php?post_type='.Post_Type::get_id(), null, __('Settings'), 'manage_options', 'options-general.php?page='.$options_page_slug);
+});
 
 function register_post_type() {
 
