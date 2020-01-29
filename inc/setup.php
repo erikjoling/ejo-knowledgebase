@@ -12,16 +12,31 @@
 
 namespace Ejo\Knowledgebase;
 
-require_once( WP_Plugin::get_file_path( 'inc/class-post-type.php' ) );
+// First we need to make classes available
+require_once( WP_Plugin::get_file_path( 'inc/classes/post-type.php' ) );
+require_once( WP_Plugin::get_file_path( 'inc/classes/options.php' ) );
 
-add_action( 'init', __NAMESPACE__ . '\register_post_type' );
-add_action( 'admin_menu', function() {
+// Add actions
+add_action( 'init',       __NAMESPACE__.'\register_post_type' );
+add_action( 'admin_menu', __NAMESPACE__.'\add_options_page' );
 
-    $options_page_slug = Post_Type::get_id() . '-options';
+/**
+ * Add options page to submenu of Knowledgebase
+ */
+function add_options_page() {
 
-    // Add options page link to post type sub menu
-    add_submenu_page('edit.php?post_type='.Post_Type::get_id(), null, __('Settings'), 'manage_options', 'options-general.php?page='.$options_page_slug);
-});
+    \add_submenu_page( 
+        Options::get_parent_slug(),
+        Options::get_page_name(),
+        Options::get_menu_name(),
+        Options::get_capability(),
+        Options::get_page_slug(),
+        [__NAMESPACE__.'\Options', 'display_page']
+    );
+
+    // Add option boxes to the option page
+    Options::add_option_box( __('Post Type', 'ejo-kb'), WP_Plugin::get_file_path( 'inc/admin/option-box-post-type.php') );
+}
 
 function register_post_type() {
 

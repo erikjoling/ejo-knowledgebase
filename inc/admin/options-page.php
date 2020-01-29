@@ -1,43 +1,50 @@
-<?php Namespace Ejo\Knowledgebase; ?>
+<?php 
+
+Namespace Ejo\Knowledgebase;
+
+?>
 
 <div class="wrap">
 
-  <h1><?php printf(__('%s Settings'), Post_Type_Labels::getEncyclopediaType()) ?></h1>
+    <h1><?= get_admin_page_title() ?></h1>
+    
+    <?php if (isset($_GET['options_saved'])): ?>
+        <div id="message" class="updated fade">
+            <p><strong><?= __('Settings saved.', 'ejo-kb') ?></strong></p>
+        </div>
+    <?php endif ?>
 
-  <?php if (isSet($_GET['options_saved'])): ?>
-  <div id="message" class="updated fade">
-    <p><strong><?php I18n::_e('Settings saved.') ?></strong></p>
-  </div>
-  <?php endif ?>
+    <style>
+        .postbox-container {
+            width: 100%;
+            max-width: 960px;
+            float: none;
+        }
 
-  <form method="post" action="">
-    <div class="metabox-holder">
+        input[type="text"], input[type="password"] {
+            width: 100%;
+        }
+    </style>
 
-      <div class="postbox-container left">
-        <?php foreach (Options::$arr_option_box['main'] as $box): ?>
-          <div class="postbox">
-            <h2 class="hndle"><?php echo $box->title ?></h2>
-            <div class="inside"><?php include $box->file ?></div>
-          </div>
-        <?php endforeach ?>
-      </div>
+    <form method="post" action="">
+        <div class="metabox-holder">
 
-      <div class="postbox-container right">
-        <?php foreach (Options::$arr_option_box['side'] as $box): ?>
-          <div class="postbox">
-            <h2 class="hndle"><?php echo $box->title ?></h2>
-            <div class="inside"><?php include $box->file ?></div>
-          </div>
-        <?php endforeach ?>
-      </div>
+            <div class="postbox-container">
+                <?php foreach (Options::get_option_boxes() as $box): ?>
+                    <div class="postbox">
+                        <h2 class="hndle"><?php echo $box->title ?></h2>
+                        <div class="inside"><?php include $box->file ?></div>
+                    </div>
+                <?php endforeach ?>
+            </div>
 
-    </div>
+        </div>
 
-    <p class="submit">
-      <input type="submit" class="button-primary" value="<?php I18n::_e('Save Changes') ?>">
-    </p>
+        <p class="submit">
+            <input type="submit" class="button-primary" value="<?= __('Save Changes', 'ejo-') ?>">
+        </p>
 
-    <?php WP_Nonce_Field('save_encyclopedia_options') ?>
-  </form>
+        <?php wp_nonce_field('save_knowledgebase_options') ?>
+    </form>
 
 </div>
