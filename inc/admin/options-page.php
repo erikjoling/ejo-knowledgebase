@@ -44,7 +44,7 @@ Namespace Ejo\Knowledgebase;
             <input type="submit" class="button-primary" value="<?= __('Save Changes', 'ejo-') ?>">
         </p>
 
-        <?php wp_nonce_field('save_knowledgebase_options') ?>
+        <?php wp_nonce_field( Options::get_nonce_value() ) ?>
     </form>
 
 </div>

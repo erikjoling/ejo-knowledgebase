@@ -20,12 +20,15 @@ require_once( WP_Plugin::get_file_path( 'inc/classes/options.php' ) );
 add_action( 'init',       __NAMESPACE__.'\register_post_type' );
 add_action( 'admin_menu', __NAMESPACE__.'\add_options_page' );
 
+// ...
+add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'maybe_save_options'] );
+
 /**
  * Add options page to submenu of Knowledgebase
  */
 function add_options_page() {
 
-    \add_submenu_page( 
+    $handle = \add_submenu_page( 
         Options::get_parent_slug(),
         Options::get_page_name(),
         Options::get_menu_name(),
@@ -34,9 +37,15 @@ function add_options_page() {
         [__NAMESPACE__.'\Options', 'display_page']
     );
 
-    // Add option boxes to the option page
-    Options::add_option_box( __('Post Type', 'ejo-kb'), WP_Plugin::get_file_path( 'inc/admin/option-box-post-type.php') );
+    // Create custom action at beginning of option page
+    add_action( 'load-'.$handle, function() {
+        do_action( Options::get_pre_options_page_hook() );
+    });
+
+    // Setup option boxes
+    Options::setup_option_boxes();
 }
+
 
 function register_post_type() {
 

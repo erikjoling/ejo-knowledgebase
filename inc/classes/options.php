@@ -7,6 +7,9 @@ abstract class Options {
     // Stores the option boxes for the options page
     private static $option_boxes = [];
 
+    // // Stores the options page handle (used for hooking action)
+    // private static $options_page_handle;
+
     public static function get_parent_slug() {
         return 'edit.php?post_type='.Post_Type::get_id();
     }
@@ -27,8 +30,20 @@ abstract class Options {
         return 'manage_options';
     }
 
+    public static function get_nonce_value() {
+        return 'save_knowledgebase_options';
+    }
+
     public static function display_page() {
         require_once( WP_Plugin::get_file_path( 'inc/admin/options-page.php' ) ); 
+    }
+
+    public static function get_pre_options_page_hook() {       
+        return 'pre_'.Post_Type::get_id().'_options_page';
+    }
+
+    public static function get() {
+        return get_option( 'ejo_knowledgebase_settings', [] );
     }
 
     /**
@@ -53,7 +68,29 @@ abstract class Options {
         return static::$option_boxes;
     }
 
-    public static function get() {
-        return get_option( 'ejo_knowledgebase_settings', [] );
+    public static function setup_option_boxes() {
+        
+        // Add option boxes to the option page
+        Options::add_option_box( __('Post Type', 'ejo-kb'), WP_Plugin::get_file_path( 'inc/admin/option-box-post-type.php') );
     }
+
+    public static function maybe_save_options(){
+
+        // Check if this is a post request
+        if (empty($_POST)) return false;
+    
+        // Check the nonce
+        check_admin_referer(Options::get_nonce_value());
+    
+        // Clean the Post array
+        $options = stripslashes_deep($_POST);
+        $options = array_filter($options, function($value){ return $value == '0' || !empty($value); });
+
+        log($options);
+    
+        // Save Options
+        // update_option(static::options_key, $options);
+    
+        return true;
+      }
 }
