@@ -4,11 +4,14 @@ Namespace Ejo\Knowledgebase;
 
 abstract class Options {
 
+    private static $option_key = 'ejo_knowledgebase_settings';
+
     // Stores the option boxes for the options page
     private static $option_boxes = [];
 
-    // // Stores the options page handle (used for hooking action)
-    // private static $options_page_handle;
+    public static function get_option_key() {
+        return static::$option_key;
+    }
 
     public static function get_parent_slug() {
         return 'edit.php?post_type='.Post_Type::get_id();
@@ -42,8 +45,18 @@ abstract class Options {
         return 'pre_'.Post_Type::get_id().'_options_page';
     }
 
+    /**
+     * Get options from database
+     */
     public static function get() {
-        return get_option( 'ejo_knowledgebase_settings', [] );
+        return get_option( static::$option_key, [] );
+    }
+
+    /**
+     * Store options in database
+     */
+    private static function set($options) {
+        update_option(static::get_option_key(), $options);
     }
 
     /**
@@ -69,9 +82,15 @@ abstract class Options {
     }
 
     public static function setup_option_boxes() {
-        
-        // Add option boxes to the option page
-        Options::add_option_box( __('Post Type', 'ejo-kb'), WP_Plugin::get_file_path( 'inc/admin/option-box-post-type.php') );
+
+        static::add_option_box( __('Post Type', 'ejo-kb'), WP_Plugin::get_file_path( 'inc/admin/option-box-post-type.php') );        
+    }
+
+    public static function load_options(){
+
+        if (static::maybe_save_options()) {
+            // redirect...
+        }
     }
 
     public static function maybe_save_options(){
@@ -80,17 +99,29 @@ abstract class Options {
         if (empty($_POST)) return false;
     
         // Check the nonce
-        check_admin_referer(Options::get_nonce_value());
-    
-        // Clean the Post array
-        $options = stripslashes_deep($_POST);
-        $options = array_filter($options, function($value){ return $value == '0' || !empty($value); });
+        check_admin_referer(static::get_nonce_value());
 
-        log($options);
+        // Get options
+        $options = $_POST[static::get_option_key()] ?? false;
+        
+        if ($options) {
+
+            /**
+             * Remove slashes
+             * 
+             * WordPress adds slashes to $_POST/$_GET/$_REQUEST/$_COOKIE regardless of what get_magic_quotes_gpc() returns.
+             * @link https://codex.wordpress.org/Function_Reference/stripslashes_deep
+             */
+            $options = stripslashes_deep($options);
+
+            // ?
+            // $options = array_filter($options, function($value){ return $value == '0' || !empty($value); });
+
+            log($options);
     
-        // Save Options
-        // update_option(static::options_key, $options);
-    
-        return true;
-      }
+            static::set($options);
+        }
+
+        return $options;
+    }
 }

@@ -7,36 +7,20 @@ namespace Ejo\Knowledgebase;
 
 ?>
 <table class="form-table">
-<tr>
-	<th><label for="option-1">Option 1</label></th>
-	<td>
-		<input type="text" name="option-1" id="option-1" value="Value 1">
-		<p class="help">
-			<?= __('This is a helpful description', 'ejo-kb') ?>
-		</p>
-	</td>
-</tr>
 
 <tr>
-	<th><label for="knowledgebase_name"><?= __('Knowledgebase name', 'ejo-kb') ?></label></th>
+	<th><label for="<?= Options::get_option_key() ?>[post_type][name]"><?= __('Knowledgebase name', 'ejo-kb') ?></label></th>
 	<td>
-		<input type="text" name="knowledgebase_name" id="knowledgebase_name" value="<?php echo esc_attr(Post_Type::get_name()) ?>">
+		<input type="text" name="<?= Options::get_option_key() ?>[post_type][name]" id="<?= Options::get_option_key() ?>[post_type][name]" value="<?php echo esc_attr(Post_Type::get_name()) ?>">
 		<p class="help">
 			<?= __('This is how your knowledgebase is called in the dashboard. For example: Encyclopedia, Lexicon, Glossary, Knowledge Base, etc.', 'ejo-kb') ?>
 		</p>
 	</td>
 </tr>
+
 </table>
+
 <?php return; ?>
-
-<tr>
-	<th><label for="item_singular_name"><?= __('Item singular name', 'ejo-kb') ?></label></th>
-	<td>
-		<input type="text" name="item_singular_name" id="item_singular_name" value="<?php echo esc_Attr(Options::get('item_singular_name')) ?>">
-		<p class="help"><?= __('The singular name for an encyclopedia item. For example: Entry, Term, Article, etc.', 'ejo-kb') ?></p>
-	</td>
-</tr>
-
 <tr>
 	<th><label for="item_plural_name"><?= __('Item plural name', 'ejo-kb') ?></label></th>
 	<td>

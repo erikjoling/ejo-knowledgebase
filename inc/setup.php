@@ -21,6 +21,8 @@ add_action( 'init',       __NAMESPACE__.'\register_post_type' );
 add_action( 'admin_menu', __NAMESPACE__.'\add_options_page' );
 
 // ...
+add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'load_options'] );
+add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'setup_option_boxes'] );
 add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'maybe_save_options'] );
 
 /**
@@ -41,9 +43,6 @@ function add_options_page() {
     add_action( 'load-'.$handle, function() {
         do_action( Options::get_pre_options_page_hook() );
     });
-
-    // Setup option boxes
-    Options::setup_option_boxes();
 }
 
 
@@ -61,20 +60,37 @@ function register_post_type() {
         'not_found'             => sprintf( __('No %s found','ejo-kb'), Post_Type::get_plural_name() ),
         'not_found_in_trash'    => sprintf( __('No %s found in trash','ejo-kb'), Post_Type::get_plural_name() ),
         'all_items'             => sprintf( __('All %s','ejo-kb'), Post_Type::get_plural_name() ),
-        // 'view_items'
-        // 'archives'
-        // 'attributes'
-        // 'insert_into_item'
-        // 'uploaded_to_this_item'
-        // 'featured_image'
-        // 'set_featured_image'
-        // 'remove_featured_image'
-        // 'use_featured_image'
-        // 'menu_name'
-        // 'filter_items_list'
-        // 'items_list_navigation'
-        // 'items_list'
-        // 'name_admin_bar'
+
+        // WordPress core
+        // 'name'                     => array( _x( 'Posts', 'post type general name' ), _x( 'Pages', 'post type general name' ) ),
+        // 'singular_name'            => array( _x( 'Post', 'post type singular name' ), _x( 'Page', 'post type singular name' ) ),
+        // 'add_new'                  => array( _x( 'Add New', 'post' ), _x( 'Add New', 'page' ) ),
+        // 'add_new_item'             => array( __( 'Add New Post' ), __( 'Add New Page' ) ),
+        // 'edit_item'                => array( __( 'Edit Post' ), __( 'Edit Page' ) ),
+        // 'new_item'                 => array( __( 'New Post' ), __( 'New Page' ) ),
+        // 'view_item'                => array( __( 'View Post' ), __( 'View Page' ) ),
+        // 'view_items'               => array( __( 'View Posts' ), __( 'View Pages' ) ),
+        // 'search_items'             => array( __( 'Search Posts' ), __( 'Search Pages' ) ),
+        // 'not_found'                => array( __( 'No posts found.' ), __( 'No pages found.' ) ),
+        // 'not_found_in_trash'       => array( __( 'No posts found in Trash.' ), __( 'No pages found in Trash.' ) ),
+        // 'parent_item_colon'        => array( null, __( 'Parent Page:' ) ),
+        // 'all_items'                => array( __( 'All Posts' ), __( 'All Pages' ) ),
+        // 'archives'                 => array( __( 'Post Archives' ), __( 'Page Archives' ) ),
+        // 'attributes'               => array( __( 'Post Attributes' ), __( 'Page Attributes' ) ),
+        // 'insert_into_item'         => array( __( 'Insert into post' ), __( 'Insert into page' ) ),
+        // 'uploaded_to_this_item'    => array( __( 'Uploaded to this post' ), __( 'Uploaded to this page' ) ),
+        // 'featured_image'           => array( _x( 'Featured Image', 'post' ), _x( 'Featured Image', 'page' ) ),
+        // 'set_featured_image'       => array( _x( 'Set featured image', 'post' ), _x( 'Set featured image', 'page' ) ),
+        // 'remove_featured_image'    => array( _x( 'Remove featured image', 'post' ), _x( 'Remove featured image', 'page' ) ),
+        // 'use_featured_image'       => array( _x( 'Use as featured image', 'post' ), _x( 'Use as featured image', 'page' ) ),
+        // 'filter_items_list'        => array( __( 'Filter posts list' ), __( 'Filter pages list' ) ),
+        // 'items_list_navigation'    => array( __( 'Posts list navigation' ), __( 'Pages list navigation' ) ),
+        // 'items_list'               => array( __( 'Posts list' ), __( 'Pages list' ) ),
+        // 'item_published'           => array( __( 'Post published.' ), __( 'Page published.' ) ),
+        // 'item_published_privately' => array( __( 'Post published privately.' ), __( 'Page published privately.' ) ),
+        // 'item_reverted_to_draft'   => array( __( 'Post reverted to draft.' ), __( 'Page reverted to draft.' ) ),
+        // 'item_scheduled'           => array( __( 'Post scheduled.' ), __( 'Page scheduled.' ) ),
+        // 'item_updated'             => array( __( 'Post updated.' ), __( 'Page updated.' ) ),
     ];
 
     $post_type_args = [
