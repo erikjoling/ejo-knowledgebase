@@ -9,9 +9,9 @@ namespace Ejo\Knowledgebase;
 <table class="form-table">
 
 <tr>
-	<th><label for="<?= Options::get_option_key() ?>[post_type][name]"><?= __('Knowledgebase name', 'ejo-kb') ?></label></th>
+	<th><label for="<?= OptionsPage::get_options_name() ?>[post_type][name]"><?= __('Knowledgebase name', 'ejo-kb') ?></label></th>
 	<td>
-		<input type="text" name="<?= Options::get_option_key() ?>[post_type][name]" id="<?= Options::get_option_key() ?>[post_type][name]" value="<?php echo esc_attr(Post_Type::get_name()) ?>">
+		<input type="text" name="<?= OptionsPage::get_options_name() ?>[post_type][name]" id="<?= OptionsPage::get_options_name() ?>[post_type][name]" value="<?php echo esc_attr(Post_Type::get_name()) ?>">
 		<p class="help">
 			<?= __('This is how your knowledgebase is called in the dashboard. For example: Encyclopedia, Lexicon, Glossary, Knowledge Base, etc.', 'ejo-kb') ?>
 		</p>

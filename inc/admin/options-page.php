@@ -8,8 +8,8 @@ Namespace Ejo\Knowledgebase;
 
     <h1><?= get_admin_page_title() ?></h1>
     
-    <?php if (isset($_GET['options_saved'])): ?>
-        <div id="message" class="updated fade">
+    <?php if (isset($_GET['settings-updated'])): ?>
+        <div id="message" class="updated notice is-dismissible">
             <p><strong><?= __('Settings saved.', 'ejo-kb') ?></strong></p>
         </div>
     <?php endif ?>
@@ -30,7 +30,7 @@ Namespace Ejo\Knowledgebase;
         <div class="metabox-holder">
 
             <div class="postbox-container">
-                <?php foreach (Options::get_option_boxes() as $box): ?>
+                <?php foreach (OptionsPage::get_option_boxes() as $box): ?>
                     <div class="postbox">
                         <h2 class="hndle"><?php echo $box->title ?></h2>
                         <div class="inside"><?php include $box->file ?></div>
@@ -44,7 +44,7 @@ Namespace Ejo\Knowledgebase;
             <input type="submit" class="button-primary" value="<?= __('Save Changes', 'ejo-') ?>">
         </p>
 
-        <?php wp_nonce_field( Options::get_nonce_value() ) ?>
+        <?php wp_nonce_field( OptionsPage::get_nonce_value() ) ?>
     </form>
 
 </div>

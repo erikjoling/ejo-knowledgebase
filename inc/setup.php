@@ -15,36 +15,13 @@ namespace Ejo\Knowledgebase;
 // First we need to make classes available
 require_once( WP_Plugin::get_file_path( 'inc/classes/post-type.php' ) );
 require_once( WP_Plugin::get_file_path( 'inc/classes/options.php' ) );
+require_once( WP_Plugin::get_file_path( 'inc/classes/options-page.php' ) );
+
+// Load options-page
+OptionsPage::init();
 
 // Add actions
 add_action( 'init',       __NAMESPACE__.'\register_post_type' );
-add_action( 'admin_menu', __NAMESPACE__.'\add_options_page' );
-
-// ...
-add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'load_options'] );
-add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'setup_option_boxes'] );
-add_action( Options::get_pre_options_page_hook(), [__NAMESPACE__.'\Options', 'maybe_save_options'] );
-
-/**
- * Add options page to submenu of Knowledgebase
- */
-function add_options_page() {
-
-    $handle = \add_submenu_page( 
-        Options::get_parent_slug(),
-        Options::get_page_name(),
-        Options::get_menu_name(),
-        Options::get_capability(),
-        Options::get_page_slug(),
-        [__NAMESPACE__.'\Options', 'display_page']
-    );
-
-    // Create custom action at beginning of option page
-    add_action( 'load-'.$handle, function() {
-        do_action( Options::get_pre_options_page_hook() );
-    });
-}
-
 
 function register_post_type() {
 
