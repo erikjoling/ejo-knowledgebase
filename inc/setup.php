@@ -76,14 +76,14 @@ function register_post_type() {
         'public'                => true,
         'menu_position'         => 24,
         'rewrite'               => [
-            'slug'       => Post_Type::get_item_slug(),
+            'slug'       => trim(Post_Type::get_item_slug(), '/'),
             'with_front' => false,
         ],
         'supports'              => array('title','editor','author','thumbnail'),
         'public'                => true,
         'show_ui'               => true,
         'publicly_queryable'    => true,
-        'has_archive'           => Post_Type::get_archive_slug(),
+        'has_archive'           => trim(Post_Type::get_archive_slug(), '/'),
         'exclude_from_search'   => false,
         'show_in_rest'          => true,
     ];

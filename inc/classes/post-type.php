@@ -21,10 +21,37 @@ abstract class Post_Type {
     }
     
     public static function get_item_slug() {
-        return Options::get()['post_type']['item_slug'] ?? __('articles','ejo-kb');
+
+        // Default item slug
+        $item_slug = __('knowledgebase', 'item slug', 'ejo-kb');
+
+        // Get archive slug
+        if ($archive_slug = static::get_archive_slug()) {
+            $item_slug = $archive_slug;
+        }
+
+        return $item_slug;
     }
     
+    /**
+     * Get archive page slug
+     */
     public static function get_archive_slug() {
-        return Options::get()['post_type']['archive_slug'] ?? __('knowledgebase','ejo-kb');
+
+        // Default archive slug
+        $archive_slug = __('knowledgebase', 'archive slug', 'ejo-kb');
+
+        // Get archive page
+        if ($archive_page = Options::get_archive_page()) {
+
+            // Get page slug (including parent pages)
+            if ($page_slug = get_page_uri($archive_page)) {
+
+                // Store archive_slug
+                $archive_slug = $page_slug;
+            }
+        }
+
+        return $archive_slug;
     }
 }

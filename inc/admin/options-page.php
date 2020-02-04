@@ -22,7 +22,7 @@ Namespace Ejo\Knowledgebase;
         }
 
         input[type="text"], input[type="password"] {
-            width: 100%;
+            /*width: 100%;*/
         }
     </style>
 

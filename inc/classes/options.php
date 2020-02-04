@@ -23,4 +23,12 @@ abstract class Options {
     public static function set($options) {
         update_option(static::get_option_key(), $options);
     }
+
+    /**
+     * Get archive page
+     */
+    public static function get_archive_page() {
+        return static::get()['archive_page'] ?? false;
+    }
+
 }

@@ -117,6 +117,13 @@ abstract class OptionsPage {
              * @link https://codex.wordpress.org/Function_Reference/stripslashes_deep
              */
             $options = stripslashes_deep($options);
+
+            // Sanitize archive slug
+            if ( isset($options['post_type']['item_slug']) ) {
+
+                // Force slashes
+                $options['post_type']['item_slug'] = '/' . trim($options['post_type']['item_slug'], '/') . '/';
+            }
             
             // ?
             // $options = array_filter($options, function($value){ return $value == '0' || !empty($value); });
