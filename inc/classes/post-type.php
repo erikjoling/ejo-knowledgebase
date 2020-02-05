@@ -44,10 +44,13 @@ abstract class Post_Type {
         // Get archive page
         if ($archive_page = Options::get_archive_page()) {
 
-            // Get page slug (including parent pages)
-            if ($page_slug = get_page_uri($archive_page)) {
+            // Get page slug of frontpage
+            if ( \get_option('page_on_front') == $archive_page ) {
+                $archive_slug = '';
+            }
 
-                // Store archive_slug
+            // Get page slug (including parent pages)
+            elseif ($page_slug = get_page_uri($archive_page)) {
                 $archive_slug = $page_slug;
             }
         }

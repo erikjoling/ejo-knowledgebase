@@ -38,6 +38,7 @@ if ( \file_exists( WP_Plugin::get_file_path( 'vendor/autoload.php' ) ) ) {
 }, [
 	'functions-debug',
 	'functions-assets',
+	'functions-template',
 ] );
 
 
