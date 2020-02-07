@@ -30,7 +30,9 @@ namespace Ejo\Knowledgebase;
 				'selected'          => Options::get_archive_page(),
 			]);
 		?>
-		<p class="help"><code><?= get_permalink(Options::get_archive_page()) ?></code></p>
+		<p class="help"><code><?php			
+			echo (Options::get_archive_page()) ? get_permalink(Options::get_archive_page()) : site_url(Post_Type::get_archive_slug());
+			?></code></p>
 	</td>
 </tr>
 
